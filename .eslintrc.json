@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2020, // Nebo verze, kterou používáš
+    "sourceType": "module"
+  },
+  "rules": {
+    // Tady můžeš přidat vlastní pravidla lintování
+    "no-console": "off"
+  }
+}

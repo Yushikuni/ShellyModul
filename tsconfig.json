@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // Všechny zkompilované soubory budou uloženy ve složce dist
+    "types": ["node"],
+    "target": "ES2020",
+    "module": "commonjs", // Použij "commonjs" pro moduly
+    "strict": true, // Přísné typování
+    "esModuleInterop": true, // Umožňuje kompatibilitu s CommonJS
+    "skipLibCheck": true, // Zrychluje kompilaci
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [ "**/*.ts" ],
+  "exclude": [ "node_modules" ]
+}
+

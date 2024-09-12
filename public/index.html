@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #status {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #onBtn {
+            background-color: green;
+            color: white;
+        }
+
+        #offBtn {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shelly Device Control</h1>
+    <div id="status">Loading status...</div>
+    <button id="onBtn">Turn On</button>
+    <button id="offBtn">Turn Off</button>
+
+    <script>
+    // Funkce pro aktualizaci statusu Shelly
+        async function updateStatus() {
+            try {
+                const response = await fetch('/shelly-status'); // Získá status z API
+                const data = await response.json();
+                const statusElement = document.getElementById('status');
+                if (data.relay[0].ison) {
+                    statusElement.textContent = 'Status: On';
+                } else {
+                    statusElement.textContent = 'Status: Off';
+                }
+            } catch (error) {
+                console.error('Error fetching Shelly status:', error);
+            }
+        }
+
+        // Funkce pro ovládání zařízení (zapnutí/vypnutí)
+        async function controlShelly(action) {
+            try {
+                await fetch(`/shelly-control/${action}`);
+                updateStatus(); // Po každém příkazu aktualizuj status
+            } catch (error) {
+                console.error(`Error turning ${action} Shelly:`, error);
+            }
+        }
+
+        // Přidání event listenerů na tlačítka
+        document.getElementById('onBtn').addEventListener('click', () => controlShelly('on'));
+        document.getElementById('offBtn').addEventListener('click', () => controlShelly('off'));
+
+        // Automatická aktualizace statusu při načtení stránky
+        window.onload = updateStatus;
+    </script>
+
+</body>
+</html>
