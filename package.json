@@ -1,0 +1,16 @@
+{
+  "name": "shelly-modul",
+  "version": "0.0.1",
+  "description": "ShellyModul",
+  "main": "app.js",
+  "author": {
+    "name": "Kvetuse Yushikuni Husakova"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  },
+  "eslintConfig": {},
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

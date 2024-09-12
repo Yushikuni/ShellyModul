@@ -1,0 +1,43 @@
+// Importuje modul fetch (node-fetch)
+const fetch = require('node-fetch');
+
+// IP adresa pro Shelly (v˝chozÌ IP nebo p¯ipojenÌ k dom·cÌ Wi-Fi)
+const shelly1IP = "localhost"//"http://192.168.33.1"; // ZmÏÚ na svou lok·lnÌ IP adresu, pokud Shelly bÏûÌ na dom·cÌ sÌti
+
+// Funkce pro zÌsk·nÌ statusu Shelly
+async function getShellyStatus() {
+    try {
+        const response = await fetch(`${shelly1IP}/status`);
+        const data = await response.json();
+        console.log("Status za¯ÌzenÌ:", data);
+    } catch (error) {
+        console.error("Chyba p¯i zÌsk·v·nÌ statusu:", error);
+    }
+}
+
+// Funkce pro zapnutÌ/vypnutÌ Shelly
+async function controlShelly(action) {
+    try {
+        const response = await fetch(`${shelly1IP}/relay/0/${action}`, { method: 'GET' });
+        console.log(`Za¯ÌzenÌ bylo ˙spÏönÏ ${action}`);
+    } catch (error) {
+        console.error(`Chyba p¯i pokusu o ${action} za¯ÌzenÌ:`, error);
+    }
+}
+
+// TestovacÌ funkce
+async function testShelly() {
+    // ZÌsk· status za¯ÌzenÌ
+    await getShellyStatus();
+
+    // Zapne za¯ÌzenÌ
+    await controlShelly('on');
+
+    // PoËkej 3 sekundy a pak vypni za¯ÌzenÌ
+    setTimeout(async () => {
+        await controlShelly('off');
+    }, 3000);
+}
+
+// Spusù testovacÌ funkci
+testShelly();
