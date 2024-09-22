@@ -12,9 +12,9 @@ app.use(express.static('public'));
 // API pro získání názvu zaøízení
 app.get('/shelly-device-info', async (req: Request, res: Response) => {
     try {
-        const response = await fetch(`${shellyDevice1IP}/status`);
+        const response = await fetch(`${shellyDevice1IP}/shelly`);
         const data = await response.json();
-        res.json({ name: data.device.name || 'Shelly 1PM' }); // Vrátí jméno zaøízení
+        res.json({ name: data.name || 'Shelly 1PM' }); // Vrátí jméno zaøízení
     } catch (error) {
         console.error('Error fetching device info:', error);
         res.status(500).send('Error fetching device info');

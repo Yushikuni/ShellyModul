@@ -108,6 +108,7 @@
                 nameElement.textContent = data.name || 'Shelly modul name';
             } catch (error) {
                 console.error('Chyba při získávání názvu zařízení:', error);
+                document.getElementById('shellyName').textContent = 'Název nelze načíst';
             }
         }
 
