@@ -48,7 +48,7 @@ app.get('/shelly-status', async (req: Request, res: Response) => {
 app.get('/shelly-control/:action', async (req:Request, res:Response) => {
     const action = req.params.action; // 'on' nebo 'off'
     try {
-        await fetch(`${shellyDevice1IP}/relay/0/${action}`, { method: 'GET' });
+        await fetch(`${shellyDevice1IP}/relay/0?turn=${action}`, { method: 'GET' });
         res.send(`Shelly was turned ${action}`);
     } catch (error) {
         console.error(`Error turning ${action} Shelly:`, error);
