@@ -1,7 +1,7 @@
-// IP adresa pro Shelly (vıchozí IP nebo pøipojení k domácí Wi-Fi)
-const shelly1IP: string = "http://192.168.33.1"; // Zmìò na svou lokální IP adresu, pokud Shelly bìí na domácí síti
 
-// Funkce pro získání statusu Shelly
+const shelly1IP: string = "http://192.168.33.1"; // TODO need to change a IP address for auth
+
+// Get shelly status
 async function getShellyStatus(): Promise<void> {
     try {
         const response = await fetch(`${shelly1IP}/status`);
@@ -12,10 +12,10 @@ async function getShellyStatus(): Promise<void> {
     }
 }
 
-// Funkce pro zapnutí/vypnutí Shelly
+// Controll shelly modul
 async function controlShelly(action: string): Promise<void> {
     try {
-        const response = await fetch(`${shelly1IP}/relay/0/${action}`, { method: 'GET' }); // Pouití nativního fetch
+        const response = await fetch(`${shelly1IP}/relay/0/${action}`, { method: 'GET' });
         
         if (!response.ok) {
             console.error(`Chyba pøi pokusu o ${action} zaøízení. Status: ${response.status}`);
@@ -23,30 +23,30 @@ async function controlShelly(action: string): Promise<void> {
         }
 
         else {
-            console.log(`Zaøízení bylo úspìšnì ${action}`); // Zaloguje úspìšnou akci
+            console.log(`Zaøízení bylo úspìšnì ${action}`); // Log success in action
             setTimeout(getShellyStatus, 1000);
         }
 
         
     } catch (error) {
-        console.error(`Chyba pøi pokusu o ${action} zaøízení:`, error); // Zaloguje chybu pøi akci
+        console.error(`Chyba pøi pokusu o ${action} zaøízení:`, error); // Log ERROR in action
     }
 }
 
 
-// Testovací funkce
+// Just a test function
 async function testShelly(): Promise<void> {
-    // Získá status zaøízení
+    // Get Shelly status
     await getShellyStatus();
 
-    // Zapne zaøízení
+    // Turn On
     await controlShelly('on');
 
-    // Poèkej 3 sekundy a pak vypni zaøízení
+    // Wait 3 sec then turn off
     setTimeout(async () => {
         await controlShelly('off');
     }, 3000);
 }
 
-// Spus testovací funkci
+// run test function
 testShelly();

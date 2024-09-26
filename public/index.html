@@ -89,7 +89,7 @@
                 const text = await response.text();
                 console.log(`Odpověď ze serveru: ${text}`);
 
-                setTimeout(updateStatus, 2000); // 2 sekundy zpoždění
+                setTimeout(updateStatus, 2000); // 2sec delay then update
                 updateStatus(); // Update status after action
             } catch (error) {
                 console.error(`Error turning ${action} Shelly:`, error);
@@ -97,7 +97,7 @@
         }
 
         document.getElementById('offBtn').addEventListener('click', () => {
-            console.log('Trying to turn off Shelly'); // Kontrola, zda kliknutí na tlačítko funguje
+            console.log('Trying to turn off Shelly'); // Check for success turn of shelly
             controlShelly('off');
         });
 
@@ -117,13 +117,12 @@
             }
         }
 
-        // Při načtení stránky zavoláme funkci na získání názvu
+        // When winodw is loaded, get update and shelly name
         window.onload = function () {
             updateStatus();
             getShellyName();
         };
 
     </script>
-
 </body>
 </html>

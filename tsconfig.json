@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "./dist", // Všechny zkompilované soubory budou uloženy ve složce dist
+    "outDir": "./dist", // Tu jsou zkopmilovane spustitelne soubory
     "types": ["node"],
     "target": "ES2020",
-    "module": "commonjs", // Použij "commonjs" pro moduly
-    "strict": true, // Přísné typování
-    "esModuleInterop": true, // Umožňuje kompatibilitu s CommonJS
+    "module": "commonjs", // Pouyiti commonjs abych nemusela mit using ci include nebo import pro fetch
+    "strict": true, // Priste tzpovani
+    "esModuleInterop": true, // tohle umoznuje kompatibilitu s CommonJS
     "skipLibCheck": true, // Zrychluje kompilaci
     "forceConsistentCasingInFileNames": true
   },

@@ -3,18 +3,18 @@ import express, { Request, Response } from 'express';
 const app = express();
 const port = 3000;
 
-// IP adresa pro Shelly
+// Shelly IP Address
 const shellyDevice1IP = "http://192.168.33.1";
 
-// Middleware pro statické soubory (pro HTML/CSS)
+// Middleware 4 static files (pro HTML/CSS)
 app.use(express.static('public'));
 
-// API pro získání názvu zaøízení
+// API for return name
 app.get('/shelly-device-info', async (req: Request, res: Response) => {
     try {
         const response = await fetch(`${shellyDevice1IP}/shelly`);
         const data = await response.json();
-        res.json({ name: data.name || 'Shelly 1PM' }); // Vrátí jméno zaøízení
+        res.json({ name: data.name || 'Shelly 1PM' }); // return name or it will be Shelly 1PM
     } catch (error) {
         console.error('Error fetching device info:', error);
         res.status(500).send('Error fetching device info');
@@ -22,19 +22,19 @@ app.get('/shelly-device-info', async (req: Request, res: Response) => {
 });
 
 
-// API pro získání statusu Shelly
+// Shelly API status retrun
 app.get('/shelly-status', async (req: Request, res: Response) => {
     try {
         const response = await fetch(`${shellyDevice1IP}/relay/0`);
-        const text = await response.text(); // Získej odpovìï jako text
-        console.log('Response:', text); // Zaloguj odpovìï
+        const text = await response.text(); // Get answer as a text
+        console.log('Response:', text); // log answer
 
-        // Pokud je odpovìï platný JSON, zpracuj ho
+        // If it JSON valid do this
         try {
-            const data = JSON.parse(text); // Ovìø, zda je to platný JSON
+            const data = JSON.parse(text); // Is JSON valid
             res.json(data);
         } catch (parseError) {
-            // Pokud není JSON, vrátí textovou odpovìï
+            // Non valid give me a text
             res.send(text);
         }
     } catch (error) {
@@ -44,7 +44,7 @@ app.get('/shelly-status', async (req: Request, res: Response) => {
 });
 
 
-// API pro ovládání Shelly
+// Shelly controll API
 app.get('/shelly-control/:action', async (req:Request, res:Response) => {
     const action = req.params.action; // 'on' nebo 'off'
     try {
@@ -56,7 +56,7 @@ app.get('/shelly-control/:action', async (req:Request, res:Response) => {
     }
 });
 
-// Spustí server na portu 3000
+// Run to port 3000
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
